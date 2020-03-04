@@ -15,76 +15,111 @@ import android.widget.Toast;
 
 import com.jhyejin99.inuclub.R;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+
 public class SettingEventAdd extends Activity {
     ImageButton event_add_back;
     Button event_add_btn;
     final int DIALOG_DATE = 1;
     final int DIALOG_TIME = 2;
-    int start_date_y,start_date_m, start_date_d, start_time_h, start_time_m;
-    int end_date_y, end_date_m, end_date_d, end_time_h, end_time_m;
+    int mYear, mMonth, mDay, mHour, mMinute;
+    int sYear, sMonth, sDay;
 
+    TextView event_start_date;
+    TextView event_start_time;
+    TextView event_end_date;
+    TextView event_end_time;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.set_event_add);
 
         event_add_back = (ImageButton)findViewById(R.id.event_add_back);
-        TextView event_start_date = (TextView) findViewById(R.id.event_start_date);
-        TextView event_start_time = (TextView)findViewById(R.id.event_start_time);
-        TextView event_end_date = (TextView)findViewById(R.id.event_end_date);
-        TextView event_end_time = (TextView)findViewById(R.id.event_end_time);
+        event_start_date = (TextView) findViewById(R.id.event_start_date);
+        event_start_time = (TextView)findViewById(R.id.event_start_time);
+        event_end_date = (TextView)findViewById(R.id.event_end_date);
+        event_end_time = (TextView)findViewById(R.id.event_end_time);
+
+        final Calendar cal = new GregorianCalendar();
 
         event_start_date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDialog(DIALOG_DATE);
+                DatePickerDialog dialog = new DatePickerDialog(SettingEventAdd.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                        sYear = year;
+                        sMonth = month;
+                        sDay = day;
+                        String msg = String.format("%d년 %d월 %d일", year, month+1, day);
+                        event_start_date.setText(msg);
+                    }
+                }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DATE));
+                dialog.show();
             }
         });
 
         event_start_time.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDialog(DIALOG_TIME);
+                TimePickerDialog dialog = new TimePickerDialog(SettingEventAdd.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int hour, int min) {
+                        String msg = String.format("%d시 %d분", hour, min);
+                        event_start_time.setText(msg);
+                    }
+                }, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), true);
+                dialog.show();
             }
         });
 
         event_end_date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDialog(DIALOG_DATE);
+                DatePickerDialog dialog = new DatePickerDialog(SettingEventAdd.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int year, int month, int date) {
+                        String msg = String.format("%d년 %d월 %d일", year, month+1, date);
+                        event_end_date.setText(msg);
+                    }
+                }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DATE));
+                dialog.show();
             }
         });
 
         event_end_time.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDialog(DIALOG_TIME);
+                TimePickerDialog dialog = new TimePickerDialog(SettingEventAdd.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int hour, int min) {
+                        String msg = String.format("%d시 %d분", hour, min);
+                        event_end_time.setText(msg);
+                    }
+                }, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), true);
+                dialog.show();
             }
         });
-
     }
 
-    public Dialog onCreateDialog(int id){
-        switch(id){
-            case DIALOG_DATE :
-                DatePickerDialog datePickerDialog = new DatePickerDialog(SettingEventAdd.this,
-                        new DatePickerDialog.OnDateSetListener(){
-                            public void onDateSet(DatePicker view, int year, int month, int day){
-                                Toast.makeText(getApplicationContext(),year+"년 "+(month+1)+"월 "+day +"일을 선택했습니다",Toast.LENGTH_LONG).show();
-                            }
-                        },2019,9,17);
-                return datePickerDialog;
+    DatePickerDialog.OnDateSetListener mDateSetListener =
+            new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                    mYear = year;
+                    mMonth = monthOfYear;
+                    mDay = dayOfMonth;
+                }
+            };
 
-            case DIALOG_TIME :
-                TimePickerDialog timePickerDialog = new TimePickerDialog(SettingEventAdd.this,
-                        new TimePickerDialog.OnTimeSetListener() {
-                            @Override
-                            public void onTimeSet(TimePicker timePicker, int hour, int minute) {
-                                Toast.makeText(getApplicationContext(),hour+"시 "+ minute +"분을 선택했습니다",Toast.LENGTH_LONG).show();
-                            }
-                        }, 11,30,false);
-                return timePickerDialog;
-        }
-        return super.onCreateDialog(id);
-    }
+    TimePickerDialog.OnTimeSetListener mTimeSetListener =
+            new TimePickerDialog.OnTimeSetListener() {
+                @Override
+                public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                    mHour = hourOfDay;
+                    mMinute = minute;
+                }
+            };
 }

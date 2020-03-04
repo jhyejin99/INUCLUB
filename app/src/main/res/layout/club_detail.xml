@@ -5,12 +5,28 @@
     android:layout_height="match_parent"
     android:background="#f8f9fa">
 
-    <ViewFlipper
+    <androidx.viewpager.widget.ViewPager
         android:id="@+id/club_image_slide"
         android:layout_width="match_parent"
         android:layout_height="180dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/indicator"
+        app:layout_constraintBottom_toBottomOf="@+id/club_image_slide"
+        app:layout_constraintEnd_toEndOf="@id/club_image_slide"
+        android:layout_marginBottom="19dp"
+        android:layout_marginRight="13dp"
+        android:text="1 / 5"
+        android:textSize="12dp"
+        android:textAlignment="center"
+        android:textColor="#ffffff"
+        android:fontFamily="@font/nanumsquare"/>
+
     <ImageButton
         android:id="@+id/club_detail_back"
         android:layout_width="24dp"
