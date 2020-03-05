@@ -40,7 +40,7 @@ public class Loading extends AppCompatActivity {
     }
 
     public void Login () {
-        Intent intent = new Intent(Loading.this, Login.class); //로그인클래스로 변경
+        Intent intent = new Intent(Loading.this, LoginActivity.class); //로그인클래스로 변경
         intent.putExtra("fromLoading",1);
         startActivity(intent);
         finish();

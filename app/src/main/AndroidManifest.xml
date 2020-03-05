@@ -22,7 +22,7 @@
         <activity android:name="com.jhyejin99.inuclub.Settings.SettingClubEdit"></activity>
         <activity android:name="com.jhyejin99.inuclub.Settings.SettingEvent"></activity>
         <activity android:name="com.jhyejin99.inuclub.Settings.Events.SettingEventAdd"></activity>
-        <activity android:name="com.jhyejin99.inuclub.Settings.Login"></activity>
+        <activity android:name="com.jhyejin99.inuclub.Settings.LoginActivity"></activity>
         <activity android:name=".Homes.CateClubList"></activity>
         <activity android:name=".Settings.Events.SettingEventDetail"></activity>
         <activity android:name=".Homes.ClubDetail"></activity>
