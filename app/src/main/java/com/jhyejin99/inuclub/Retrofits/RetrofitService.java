@@ -10,5 +10,5 @@ public interface RetrofitService {
     //로그인
     @FormUrlEncoded
     @POST("/account/signIn")
-    Call<LoginResponse> login(@Field("id")String id, @Field("passwd") String passwd);
+    Call<LoginResponse> login(@Field("id") String id, @Field("passwd") String passwd);
 }

@@ -24,7 +24,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
     EditText login_id, login_pw;
     String id,passwd;
-    CheckBox login_check;
     ImageButton later, login, signup;
 
     @Override
@@ -57,7 +56,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                     public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                         if(response.isSuccessful()){
                             String result = response.body().getToken();
-                            Log.d("loginResult",result);
+                            Log.d("loginResult", result);
                             Toast.makeText(getApplicationContext(),"로그인 되었습니다.",Toast.LENGTH_SHORT).show();
                             finish();
                         }
